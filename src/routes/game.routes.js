@@ -1,9 +1,12 @@
+//define todas las rutas relacionadas con juegos
 import { Router } from 'express';
 import { check } from 'express-validator';
 import validateFields from '../middlewares/validateFields.js';
 import { createGame, getGames, updateGame } from '../controllers/game.controller.js';
+//router dedicado a juegos
 const gameRouter = Router();
 
+//actualiza un juego existente por su id
 gameRouter.put('/:id', [
     check('title').not().isEmpty(),
     check('age').not().isEmpty(),
@@ -13,6 +16,7 @@ gameRouter.put('/:id', [
     validateFields
 ], updateGame);
 
+//crea un nuevo juego
 gameRouter.put('/', [
     check('title').not().isEmpty(),
     check('age').not().isEmpty(),
@@ -22,7 +26,7 @@ gameRouter.put('/', [
     validateFields
 ], createGame);
 
+//lista juegos 
 gameRouter.get('/', getGames);
-gameRouter.get('/:query', getGames);
 
 export default gameRouter;
