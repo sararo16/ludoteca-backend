@@ -16,13 +16,14 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use('/category', categoryRouter);
-
-app.listen(process.env.PORT, () => {
-    console.log(`Server running on port ${process.env.PORT}`);
-});
 app.use('/author', authorRouter);
 app.use('/game', gameRouter);
 app.use('/client', clientRouter);
 app.use('/prestamo', prestamoRouter);
+
+
+app.listen(process.env.PORT, () => {
+    console.log(`Server running on port ${process.env.PORT}`);
+});
 
 

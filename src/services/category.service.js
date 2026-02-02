@@ -5,12 +5,31 @@ import { getGame } from './game.service.js';
 
 //crea una categoria nueva con el nombre recibido
 export const createCategory = async function(name) {
-    try {
-        return await category.save(); //lo guarda en la bd
-    } catch (e) {
-        throw Error('Error creating category');
+    
+ try {
+    const clean = (name ?? '').trim();
+    if (!clean) {
+      throw new Error('El nombre es obligatorio');
     }
-}
+
+// Verificar duplicado 
+    const exists = await CategoryModel.findOne({
+      name: { $regex: `^${clean}$`, $options: 'i' }
+    });
+    if (exists) {
+      const err = new Error('La categoría ya existe');
+      err.code = 'CATEGORY_DUP';
+      throw err;
+    }
+
+ const category = new CategoryModel({ name: clean });
+    return await category.save();
+  } catch (e) {
+    
+    throw e;
+  }
+};
+
 
 //devuelve todas las categorias ordenadas alfabeticamente
 export const getCategories = async function () {

@@ -15,7 +15,7 @@ categoryRouter.put('/:id', [
 ], updateCategory);
 
 //crea una nueva categoria
-categoryRouter.put('/', [
+categoryRouter.post('/', [
     check('name').not().isEmpty(),
     validateFields
 ], createCategory);
