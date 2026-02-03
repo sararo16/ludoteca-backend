@@ -1,3 +1,5 @@
+
+//Es el archivo que levanta el servidor 
 import express from 'express';
 import cors from 'cors';
 import connectDB from './config/db.js';
@@ -7,10 +9,13 @@ import authorRouter from './src/routes/author.routes.js';
 import gameRouter from './src/routes/game.routes.js';
 import clientRouter from './src/routes/client.routes.js';
 import prestamoRouter from './src/routes/prestamo.routes.js';
-config();
-connectDB(process.env.MONGODB_URL);
-const app = express();
 
+config();
+
+connectDB(process.env.MONGODB_URL);
+
+const app = express();
+//habilita CORS para permitir peticiones desde el front
 app.use(cors({
     origin: '*'
 }));
@@ -21,7 +26,7 @@ app.use('/game', gameRouter);
 app.use('/client', clientRouter);
 app.use('/prestamo', prestamoRouter);
 
-
+//arranca el servidor HTTP 
 app.listen(process.env.PORT, () => {
     console.log(`Server running on port ${process.env.PORT}`);
 });

@@ -8,16 +8,17 @@ try {
     //se leen los filtros desde la query
 const { gameId, clientId, date, pageNumber, pageSize } = req.query;
 
+    //construccion dinamica del query de busqueda
 let query = {};
 if (gameId) query.game = gameId;
 if (clientId) query.client = clientId;
-//si llefa date buscamos prestamos activos desde ese dia
+//si lleva date buscamos prestamos activos desde ese dia
 if (date) {
 const searchDate = new Date(date);
 query.startDate = { $lte: searchDate };
 query.endDate = { $gte: searchDate };
 }
-//paginacion:base , limit y calculo de skip
+//paginacion:pagina , tamaño y calculo de skip
 const page = parseInt(pageNumber) || 0;
 const limit = parseInt(pageSize) || 5;
 const skip = page * limit;
@@ -41,6 +42,7 @@ console.error("Error en getPrestamo:", error);
 res.status(500).json({ message: "Error interno del servidor" });
 }
 };
+
 //crea un prestamo
 export const createPrestamo = async (req, res) => {
 try {
@@ -51,13 +53,14 @@ res.json(newPrestamo);
 res.status(500).json({ message: "Error al crear préstamo" });
 }
 };
+
 //actualiza un prestamo existente por su ID 
 export const updatePrestamo = async (req, res) => {
 try {
 const { id } = req.params;
 const updatedPrestamo = await Prestamo.findByIdAndUpdate(
     id, 
-    req.body, { new: true }//devuelve el documento creado
+    req.body, { new: true }//devuelve el prestamo actualizado
 );
 res.json(updatedPrestamo);
 } catch (error) {

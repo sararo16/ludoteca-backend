@@ -1,12 +1,15 @@
 
-//este archivo define todas las funciones que responden a las petiones HTTP relacionadas con Author
+//este archivo define todas las funciones que responden a las petiones HTTP
+//extraen los datos de req
+//llama a la capa de servicio para la logica de negocio 
+
 import * as AuthorService from '../services/author.service.js';
 
 //obtiene la lista completa de autores
 export const getAuthors = async (req, res) => {
     try {
         const authors = await AuthorService.getAuthors();
-       //llama al servicio
+       //llama al service
         res.status(200).json(
             authors
         ); //devuelve los autores en json
@@ -31,7 +34,7 @@ export const getAuthors = async (req, res) => {
         }
     }   
 
-    //actualiza un autor existente segun Id
+    //actualiza un autor existente segun Id de la ruta
     export const updateAuthor = async (req, res) => {
         const authorId = req.params.id; //id del autor a actualizar
         try {

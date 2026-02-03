@@ -5,6 +5,7 @@ import normalize from 'normalize-mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
 const { Schema, model } = mongoose;
+
 //define la estructura de los documentos autor en la bd
 const authorSchema = new Schema({
     name: {
@@ -19,6 +20,7 @@ const authorSchema = new Schema({
 
     }
 });
+
 //plugins del schema:
 //normaliza la salida
 authorSchema.plugin(normalize);

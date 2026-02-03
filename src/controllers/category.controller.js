@@ -5,8 +5,6 @@ import * as CategoryService from '../services/category.service.js';
 
     //Crea una nueva categoria
     export const createCategory = async (req, res) => {
-
-
         const { name } = req.body;
         try {
             //llama al servicio que crea la categoria en bd
